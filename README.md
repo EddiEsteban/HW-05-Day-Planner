@@ -5,3 +5,5 @@ This scheduler displays the current date and time, and has a textarea for each b
 ## Usage
 
 Type in the textarea in which you wish to task notes. Select the save button indicated by the floppy disk 💾 to have that task remembered in the textarea in subsequent page visits. Unsaved tasks will not be remembered.
+
+[Link to Work Day Scheduler](https://eddiesteban.github.io/HW-05-Day-Planner/)
