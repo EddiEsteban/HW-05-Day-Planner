@@ -4,17 +4,16 @@ body {
   line-height: 1;
 }
 
-
-
 textarea{
   background: transparent;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.1) ;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
   /* padding: 10px; */
   width: 100%;
   height: 100%;
+  animation: all .3s ease-in-out;
 }
 
 .jumbotron {
@@ -44,6 +43,7 @@ textarea{
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  padding: 2em;
 }
 
 .past {

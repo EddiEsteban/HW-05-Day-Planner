@@ -1,34 +1,64 @@
-
-function setDate(){
-    dateNow = moment().format('dddd MMM Do YYYY, h:mm:ss a')
-    document.querySelector('#currentDay').innerHTML = dateNow
-    console.log(moment('7pm','ha').format('H'))
-}
-setDate()
-setInterval(setDate, 1000)
-
-const startingTime = 9 //24h
+const startingTime = 9 //hours in 24h time
 const businessHoursDuration = 9
 const businessHours = [];
+
+const tasksArrayDefault = []
+for (let i = 0; i < businessHoursDuration; i++) {
+   tasksArrayDefault.push({hour:i+ startingTime, task:''})
+}
+
+const tasksArray = localStorage.tasksArray ? JSON.parse(localStorage.tasksArray) : tasksArrayDefault
+
+function timeCheck(){
+    let dateNow = moment().format('dddd MMM Do YYYY, h:mm:ss a')
+    document.querySelector('#currentDay').innerHTML = dateNow
+    for (let i = 0; i < businessHoursDuration;  i++){
+        let hourEl = document.querySelector(`#textarea${startingTime + i}`)
+        // color textarea
+        if (moment().format('H') == hourEl){
+            hourEl.style.backgroundColor = '#ff8888'
+        } else if (moment().format('H') < hourEl){
+            hourEl.style.backgroundColor = '#888888'
+        } else if (moment().format('H') > hourEl){
+            hourEl.style.backgroundColor = '#88ff88'
+        }
+    
+
+    }
+}
+
+createTimeBlock()
+timeCheck()
+setInterval(timeCheck, 1000)
+
+
 for (let i = 0; i < businessHoursDuration; i++) {
     businessHours.push(moment(startingTime + i, 'H').format('ha'))
 }
 
 
-console.log(moment().endOf('day').fromNow() )
-
 function createTimeBlock(){
     for (i=0; i<businessHoursDuration;i++){
-        document.querySelector('#time-block-container').innerHTML += `
-        <div class='time-block row no-gutters' id='${i}'>
-                <div class='hour col-1'>
-                    ${moment(startingTime + i, 'H').format('h a')}
-                </div>
-                <div class='description col-10'><textarea></textarea></div>
-                <div class='col-1'><button class='saveBtn'>💾</button></div>
+        var displayHour = moment(startingTime + i, 'H').format('h a')
+        document.querySelector('#time-block-container').innerHTML += `<div 
+            class='time-block row no-gutters' id='timeblock${startingTime + i}'><div 
+                class='hour col-1'>${displayHour}</div>
+                <div class='description col-10'><textarea id='textarea${startingTime + i}'>${tasksArray[i].task}</textarea></div>
+                <div class='col-1'><button class='saveBtn' onClick='saveTask(event)'>💾</button></div>
         </div>`
     }
 }
 
-window.addEventListener('load', createTimeBlock)
 
+function saveTask(event){
+    event.preventDefault()
+    let timeblockId = event.target.parentElement.parentElement.id.replace(/\D/g,'')
+    let targetTask = document.querySelector(`#textarea${timeblockId}`)
+    let tasksIndex = tasksArray.findIndex((obj => obj.hour == timeblockId))
+    console.log(`timeblockID ${timeblockId}`)
+    console.log(`targetTask ${targetTask}`)
+    console.log(`tasksIndex ${tasksIndex}`)
+    tasksArray[tasksIndex].task = targetTask.value
+
+    localStorage.tasksArray = JSON.stringify(tasksArray)
+}
