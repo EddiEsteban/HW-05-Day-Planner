@@ -13,14 +13,15 @@ function timeCheck(){
     let dateNow = moment().format('dddd MMM Do YYYY, h:mm:ss a')
     document.querySelector('#currentDay').innerHTML = dateNow
     for (let i = 0; i < businessHoursDuration;  i++){
-        let hourEl = document.querySelector(`#textarea${startingTime + i}`)
+        let hourIter = startingTime + i
+        let textareaEl = document.querySelector(`#textarea${startingTime + i}`)
         // color textarea
-        if (moment().format('H') == hourEl){
-            hourEl.style.backgroundColor = '#ff8888'
-        } else if (moment().format('H') < hourEl){
-            hourEl.style.backgroundColor = '#888888'
-        } else if (moment().format('H') > hourEl){
-            hourEl.style.backgroundColor = '#88ff88'
+        if (moment().format('H') == hourIter){
+            textareaEl.style.backgroundColor = '#ff8888'
+        } else if (moment().format('H') < hourIter){
+            textareaEl.style.backgroundColor = '#888888'
+        } else if (moment().format('H') > hourIter){
+            textareaEl.style.backgroundColor = '#88ff88'
         }
     
 
@@ -42,7 +43,7 @@ function createTimeBlock(){
         var displayHour = moment(startingTime + i, 'H').format('h a')
         document.querySelector('#time-block-container').innerHTML += `<div 
             class='time-block row no-gutters' id='timeblock${startingTime + i}'><div 
-                class='hour col-1'>${displayHour}</div>
+                class='hour col-1' id='hour${startingTime + i}'>${displayHour}</div>
                 <div class='description col-10'><textarea id='textarea${startingTime + i}'>${tasksArray[i].task}</textarea></div>
                 <div class='col-1'><button class='saveBtn' onClick='saveTask(event)'>💾</button></div>
         </div>`
