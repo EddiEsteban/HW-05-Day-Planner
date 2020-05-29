@@ -17,11 +17,11 @@ function timeCheck(){
         let textareaEl = document.querySelector(`#textarea${startingTime + i}`)
         // color textarea
         if (moment().format('H') == hourIter){
-            textareaEl.style.backgroundColor = '#ff8888'
+            textareaEl.setAttribute('class', 'present')
         } else if (moment().format('H') > hourIter){
-            textareaEl.style.backgroundColor = '#888888'
+            textareaEl.setAttribute('class', 'past')
         } else if (moment().format('H') < hourIter){
-            textareaEl.style.backgroundColor = '#88ff88'
+            textareaEl.setAttribute('class', 'future')
         }
     
 
