@@ -18,9 +18,9 @@ function timeCheck(){
         // color textarea
         if (moment().format('H') == hourIter){
             textareaEl.style.backgroundColor = '#ff8888'
-        } else if (moment().format('H') < hourIter){
-            textareaEl.style.backgroundColor = '#888888'
         } else if (moment().format('H') > hourIter){
+            textareaEl.style.backgroundColor = '#888888'
+        } else if (moment().format('H') < hourIter){
             textareaEl.style.backgroundColor = '#88ff88'
         }
     
